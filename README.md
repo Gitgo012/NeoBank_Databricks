@@ -117,18 +117,34 @@ This separates table-specific configuration from reusable processing logic, redu
 
 ### Databricks Jobs
 
-The notebooks are designed to work as task-based workflows. The table-list notebook filters active tables by source system and orders them by `load_order`; the parameter notebook retrieves each table's configured parameters and passes them through Databricks task values.
+The `NeoBank_Master_Pipeline` is the master Databricks job that orchestrates the end-to-end data pipeline. It ingests data from two sources—cloud files (Blob-style ingestion) and SQL Server—and coordinates downstream transformations and notifications through task dependencies.
 
-The repository contains notebook components for metadata setup, metadata lookup, source-to-Bronze ingestion, Bronze-to-Silver processing, Silver-to-Gold transformations, and email notification. Configure task dependencies and notebook paths in your workspace to match your imported notebook layout.
+The master job consists of the following tasks:
 
-### Pipeline audit
+1. **`Source_To_Silver_Blob`** — Executes the source-to-silver workflow for CSV files uploaded to the Databricks Volume, simulating cloud file ingestion.
+2. **`Source_To_Silver_SqlServer`** — Executes the source-to-silver workflow for data ingested from SQL Server.
+3. **`Silver_To_Gold`** — Runs after both source-ingestion tasks complete successfully, transforming the Silver-layer data into Gold-layer analytical tables.
+4. **`NeoBank_Dashboard`** — A downstream dashboard task configured to run after the Silver-to-Gold task completes.
+5. **`Send_Email`** — Sends an email notification after the Silver-to-Gold task completes.
 
-The pipeline audit table records:
+The two source-ingestion tasks run as separate branches and converge at `Silver_To_Gold`. The dashboard and email notification tasks are configured as downstream tasks using an **“If all done”** dependency, meaning they can run after the upstream task finishes regardless of whether it succeeded or failed. Their own execution outcomes should therefore be checked separately.
+
+This orchestration separates source ingestion from analytical transformations and provides a centralized workflow for running the NeoBank pipeline.
+
+![NeoBank Data Ingestion Master Job](05_Docs/images/master_job.png)
+
+### Pipeline Audit
+
+The `pipeline_runs` metadata table maintains an audit trail of pipeline execution, including:
+
 - Run and table identifiers.
 - Processing layer.
 - Start and end timestamps.
 - Execution status (`INPROGRESS`, `SUCCESS`, or `FAILED`).
 - Record count and error details.
+
+This audit information supports execution monitoring and troubleshooting across the pipeline.
+
 
 ### Email notification
 
