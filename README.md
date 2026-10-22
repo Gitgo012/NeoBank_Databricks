@@ -167,12 +167,13 @@ NeoBank_Databricks/
 ├── 03_Silver_to_Gold/
 ├── 04_Email_Notification/
 └── 05_Docs/
-    └── docs/
-        └── images/
-            ├── architecture.svg
-            ├── metadata_er.svg
-            ├── source_er.svg
-            └── dashboard.png
+    ├── Images/
+    |   ├── architecture.svg
+    |   ├── metadata_er.svg
+    |   ├── source_er.svg
+    |   └── dashboard.png
+    └── Dashboard/
+        └──NeoBank_Dashboard.lvdash
 ```
 
 The diagrams and dashboard screenshot are stored in `05_Docs/docs/images/` and are embedded above using relative paths.
