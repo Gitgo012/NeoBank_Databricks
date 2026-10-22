@@ -21,7 +21,7 @@ The implementation includes:
 
 The following diagram shows the end-to-end NeoBank pipeline, including source ingestion, the Medallion layers, metadata/auditing, governance, and consumption.
 
-![NeoBank end-to-end architecture](05_Docs/images/architecture.svg)
+![NeoBank end-to-end architecture](05_Docs/Images/architecture.svg)
 
 ## Data Sources
 
@@ -42,7 +42,7 @@ The relational source is read using Spark JDBC with connection details retrieved
 
 The source ER diagram shows the relationships between the core banking tables and the supporting credit bureau and payment gateway datasets.
 
-![NeoBank source table ER diagram](05_Docs/images/source_er.svg)
+![NeoBank source table ER diagram](05_Docs/Images/source_er.svg)
 
 
 ## Medallion Architecture
@@ -98,7 +98,7 @@ Pipeline behavior is controlled by tables in the `banking.metadata` schema.
 
 The metadata ER diagram shows how the central `tables` registry relates to its parameters, watermark state, and pipeline-run audit records.
 
-![NeoBank metadata ER diagram](05_Docs/images/metadata_er.svg)
+![NeoBank metadata ER diagram](05_Docs/Images/metadata_er.svg)
 
 
 ### Metadata-driven execution flow
@@ -184,4 +184,4 @@ The diagrams and dashboard screenshot are stored in `05_Docs/docs/images/` and a
 3. Branch Insights
 4. Transaction Insights
 
-![NeoBank Executive Dashboard](05_Docs/images/dashboard.png)
+![NeoBank Executive Dashboard](05_Docs/Images/dashboard.png)
