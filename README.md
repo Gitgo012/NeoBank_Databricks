@@ -131,7 +131,7 @@ The two source-ingestion tasks run as separate branches and converge at `Silver_
 
 This orchestration separates source ingestion from analytical transformations and provides a centralized workflow for running the NeoBank pipeline.
 
-![NeoBank Data Ingestion Master Job](05_Docs/images/master_job.png)
+![NeoBank Data Ingestion Master Job](05_Docs/Images/master_job.png)
 
 ### Pipeline Audit
 
